@@ -19,11 +19,14 @@ npm i use-keep-state -S
 
 ## Usage
 ```js
+import React from 'react';
 import useKeepState from 'use-keep-state';
 
 const namespace = Symbol('App');
+// Namespaces may conflict.
+// const namespace = 'App';
 
-export const App = () => {
+const App = () => {
   const [state, setState] = useKeepState({
     name: 'name'
   }, namespace);
@@ -39,6 +42,8 @@ export const App = () => {
     </div>
   )
 }
+
+export default App;
 ```
 
 ## License
