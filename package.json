@@ -1,0 +1,26 @@
+{
+  "name": "use-keep-state",
+  "version": "1.1.1",
+  "description": "keep-alive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xjh22222228/use-keep-state.git"
+  },
+  "keywords": [
+    "keep-alive"
+  ],
+  "author": "xiejiahe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xjh22222228/use-keep-state/issues"
+  },
+  "homepage": "https://github.com/xjh22222228/use-keep-state#readme",
+  "dependencies": {
+    "lodash.merge": "^4.6.2",
+    "react": "^16.13.1"
+  }
+}
