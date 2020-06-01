@@ -7,6 +7,9 @@ Similar to Vue keep-alive, But it is not a component.
 ## Example
 [codesandbox](https://codesandbox.io/s/intelligent-beaver-qofwd?fontsize=14&hidenavigation=1&theme=dark)
 
+![](https://xiejiahe.gitee.io/public/github/use-keep-state.gif)
+
+
 
 
 ## Install
