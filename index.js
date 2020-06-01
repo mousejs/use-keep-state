@@ -45,9 +45,9 @@ function useKeepState(initState, options) {
       if (options.sessionStorage) {
         try {
           v = JSON.parse(window.sessionStorage.getItem(key));
-        } catch {
-          v = cache[namespace];
-        }
+        } catch {}
+      } else {
+        v = cache[namespace];
       }
 
       v && setState(v);
