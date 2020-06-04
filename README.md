@@ -1,6 +1,6 @@
-> useKeppState for React.js
+> useKeepState for React.js
 
-## useKeppState
+## useKeepState
 Similar to Vue keep-alive, But it is not a component.
 
 
@@ -38,7 +38,7 @@ const namespace = Symbol('App');
 
 const App = () => {
   const [state, setState] = useKeepState({
-    name: 'name'
+    name: 'name',
   }, namespace);
 
   const onClick = () => {
@@ -55,6 +55,17 @@ const App = () => {
 
 export default App;
 ```
+
+
+## API
+useKeepState(initState: object, options: object | string)
+
+options
+- namespace  // Unique name `Symbol | String`
+- keepAlive  // default `true`
+- sessionStorage  // default `false`
+
+
 
 ## License
 MIT
