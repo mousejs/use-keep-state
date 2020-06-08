@@ -5,15 +5,7 @@ Similar to Vue keep-alive, But it is not a component.
 
 
 ## Example
-Download this project.
-```bash
-git clone https://github.com/xjh22222228/use-keep-state.git
-cd use-keep-state/example
-npm install
-npm start
-```
 
-Online: 
 [codesandbox](https://codesandbox.io/s/intelligent-beaver-qofwd?fontsize=14&hidenavigation=1&theme=dark)
 
 

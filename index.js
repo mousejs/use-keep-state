@@ -4,6 +4,7 @@ import merge from 'lodash.merge';
 let namespace;
 let key;
 const cache = Object.create(null);
+const storageKey = 'UKP_';
 
 function reducer(prevState, nextState) {
   const v = merge({}, prevState, nextState);
@@ -14,7 +15,7 @@ function reducer(prevState, nextState) {
 window.addEventListener('beforeunload', () => {
   if (!namespace) return;
   window.sessionStorage.setItem(
-    key,
+    storageKey + key,
     JSON.stringify(cache[namespace])
   );
 });
@@ -44,7 +45,7 @@ function useKeepState(initState, options) {
       let v = null;
       if (options.sessionStorage) {
         try {
-          v = JSON.parse(window.sessionStorage.getItem(key));
+          v = JSON.parse(window.sessionStorage.getItem(storageKey + key));
         } catch {
           v = null;
         }
@@ -58,7 +59,7 @@ function useKeepState(initState, options) {
     return () => {
       if (options.sessionStorage) {
         window.sessionStorage.setItem(
-          key,
+          storageKey + key,
           JSON.stringify(cache[namespace])
         );
       }
