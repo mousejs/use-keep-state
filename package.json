@@ -22,5 +22,6 @@
   "dependencies": {
     "lodash.merge": "^4.6.2",
     "react": "^16.13.1"
-  }
+  },
+  "typings": "./index.d.ts"
 }
