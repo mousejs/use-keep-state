@@ -4,7 +4,7 @@ import merge from 'lodash.merge';
 let namespace;
 let key;
 const cache = Object.create(null);
-const storageKey = 'UKP_';
+const STORAGE_KEY = 'use_keep_state';
 
 function reducer(prevState, nextState) {
   const v = merge({}, prevState, nextState);
@@ -14,10 +14,7 @@ function reducer(prevState, nextState) {
 
 window.addEventListener('beforeunload', () => {
   if (!namespace) return;
-  window.sessionStorage.setItem(
-    storageKey + key,
-    JSON.stringify(cache[namespace])
-  );
+  setStorage();
 });
 
 function useKeepState(initState, options) {
@@ -44,13 +41,9 @@ function useKeepState(initState, options) {
     if (options.keepAlive) {
       let v = null;
       if (options.sessionStorage) {
-        try {
-          v = JSON.parse(window.sessionStorage.getItem(storageKey + key));
-        } catch {
-          v = null;
-        }
+        v = getStorage();
       } else {
-        v = cache[namespace];
+        v = cache[namespace] || {};
       }
 
       v && setState(v);
@@ -58,10 +51,7 @@ function useKeepState(initState, options) {
 
     return () => {
       if (options.sessionStorage) {
-        window.sessionStorage.setItem(
-          storageKey + key,
-          JSON.stringify(cache[namespace])
-        );
+        setStorage();
       }
 
       if (!options.keepAlive) {
@@ -77,6 +67,24 @@ function useKeepState(initState, options) {
     state,
     setState
   ];
+}
+
+function getStorage() {
+  const content = window.sessionStorage.getItem(STORAGE_KEY);
+  const o = Object.create(null);
+  if (!content) return o;
+  try {
+    const json = JSON.parse(content);
+    return json;
+  } catch {
+    return o;
+  }
+ }
+ 
+function setStorage(v) {
+  v = v || cache;
+  if (Object.prototype.toString.call(v) !== '[object Object]') return;
+  return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(v));
 }
 
 export default useKeepState;
