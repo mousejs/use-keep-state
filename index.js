@@ -1,18 +1,19 @@
 import { useReducer, useEffect } from 'react';
-import merge from 'lodash.merge';
 
 let namespace;
 let cache = Object.create(null);
 const STORAGE_KEY = 'USE-KEEP-STATE';
 
 function reducer(prevState, nextState) {
-  const v = merge({}, prevState, nextState);
+  const v = {
+    ...prevState,
+    ...nextState
+  };
   cache[String(namespace)] = v;
   return v;
 }
 
 window.addEventListener('beforeunload', () => {
-  if (!namespace) return;
   setStorage();
 });
 
@@ -37,7 +38,7 @@ function useKeepState(initState, options) {
     namespace = options.namespace;
 
     if (options.keepAlive) {
-      if (options.sessionStorage && Object.keys(cache).length !== 0) {
+      if (options.sessionStorage && Object.keys(cache).length === 0) {
         cache = getStorage();
       }
       const v = cache[namespace] || cache[String(namespace)];
@@ -52,8 +53,6 @@ function useKeepState(initState, options) {
       if (!options.keepAlive) {
         cache[namespace] = Object.create(null);
       }
-
-      namespace = null;
     };
   }, []);
 

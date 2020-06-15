@@ -1,6 +1,6 @@
 {
   "name": "use-keep-state",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "keep alive for React",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/xjh22222228/use-keep-state#readme",
   "dependencies": {
-    "lodash.merge": "^4.6.2",
     "react": "^16.13.1"
   },
   "typings": "./index.d.ts"
