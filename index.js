@@ -2,13 +2,12 @@ import { useReducer, useEffect } from 'react';
 import merge from 'lodash.merge';
 
 let namespace;
-let key;
-const cache = Object.create(null);
-const STORAGE_KEY = 'use_keep_state';
+let cache = Object.create(null);
+const STORAGE_KEY = 'USE-KEEP-STATE';
 
 function reducer(prevState, nextState) {
   const v = merge({}, prevState, nextState);
-  cache[namespace] = v;
+  cache[String(namespace)] = v;
   return v;
 }
 
@@ -36,16 +35,12 @@ function useKeepState(initState, options) {
     }
 
     namespace = options.namespace;
-    key = String(namespace);
 
     if (options.keepAlive) {
-      let v = null;
-      if (options.sessionStorage) {
-        v = getStorage();
-      } else {
-        v = cache[namespace] || {};
+      if (options.sessionStorage && Object.keys(cache).length !== 0) {
+        cache = getStorage();
       }
-
+      const v = cache[namespace] || cache[String(namespace)];
       v && setState(v);
     }
 
@@ -59,7 +54,6 @@ function useKeepState(initState, options) {
       }
 
       namespace = null;
-      key = null;
     };
   }, []);
 
@@ -79,8 +73,8 @@ function getStorage() {
   } catch {
     return o;
   }
- }
- 
+}
+
 function setStorage(v) {
   v = v || cache;
   if (Object.prototype.toString.call(v) !== '[object Object]') return;

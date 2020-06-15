@@ -6,7 +6,7 @@ Similar to Vue keep-alive, But it is not a component.
 
 ## Example
 
-[codesandbox](https://codesandbox.io/s/intelligent-beaver-qofwd?fontsize=14&hidenavigation=1&theme=dark)
+[codesandbox](https://codesandbox.io/s/mutable-breeze-fo8k7?file=/page-1.js)
 
 
 ![](https://xiejiahe.gitee.io/public/github/use-keep-state.gif)
