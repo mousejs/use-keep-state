@@ -1,6 +1,6 @@
 {
   "name": "use-keep-state",
-  "version": "1.1.9",
+  "version": "1.1.91",
   "description": "keep alive for React",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xjh22222228/use-keep-state.git"
+    "url": "git+https://github.com/mousejs/use-keep-state.git"
   },
   "keywords": [
     "keep-alive"
@@ -16,9 +16,9 @@
   "author": "xiejiahe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xjh22222228/use-keep-state/issues"
+    "url": "https://github.com/mousejs/use-keep-state/issues"
   },
-  "homepage": "https://github.com/xjh22222228/use-keep-state#readme",
+  "homepage": "https://github.com/mousejs/use-keep-state#readme",
   "dependencies": {
     "react": "^16.13.1"
   },

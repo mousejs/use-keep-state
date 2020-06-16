@@ -7,11 +7,6 @@
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
-lodash.merge@^4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
-  integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
-
 loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
@@ -46,11 +41,3 @@ react@^16.13.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-
-use-keep-state@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/use-keep-state/-/use-keep-state-1.1.2.tgz#d481cfa908cc1574822efbee24e6a3365744ed69"
-  integrity sha512-fVYI/UG2tDiurUZYgc5kEJ+XbuNBnVggjHSk+CJR6nUJokzTA7UZAHmGYuYQz++8AlKSi0HhVP2niUIxt/6eSA==
-  dependencies:
-    lodash.merge "^4.6.2"
-    react "^16.13.1"
