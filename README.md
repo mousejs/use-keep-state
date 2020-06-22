@@ -1,4 +1,4 @@
-> useKeepState for React.js
+> useKeepState for React.js [![HitCount](http://hits.dwyl.com/xjh22222228/use-keep-state.svg)](http://hits.dwyl.com/xjh22222228/use-keep-state)
 
 ## useKeepState
 Similar to Vue keep-alive, But it is not a component.
@@ -24,9 +24,8 @@ npm i use-keep-state -S
 import React from 'react';
 import useKeepState from 'use-keep-state';
 
-const namespace = Symbol('App');
-// Namespaces may conflict.
-// const namespace = 'App';
+// Must be unique
+const namespace = 'App';
 
 const App = () => {
   const [state, setState] = useKeepState({
@@ -50,12 +49,16 @@ export default App;
 
 
 ## API
-useKeepState(initState: object, options: object | string)
+useKeepState(initState: object, [options]: object | string)
 
 options
-- namespace  // Unique name `Symbol | String`
+- namespace  // Unique name `String`
 - keepAlive  // default `true`
 - sessionStorage  // default `false`
+
+## Methods
+- destroy
+
 
 
 

@@ -1,27 +1,32 @@
 import { useReducer, useEffect } from 'react';
 
-let namespace;
 let cache = Object.create(null);
 const STORAGE_KEY = 'USE-KEEP-STATE';
-
-function reducer(prevState, nextState) {
-  const v = {
-    ...prevState,
-    ...nextState
-  };
-  cache[String(namespace)] = v;
-  return v;
-}
+const toString = Object.prototype.toString;
 
 window.addEventListener('beforeunload', () => {
   setStorage();
 });
 
+function isObject(v) {
+  return toString.call(v) === '[object Object]';
+}
+
 function useKeepState(initState, options) {
+  const namespace = isObject(options) ? options.namespace : options;
+  function reducer(prevState, nextState) {
+    const v = {
+      ...prevState,
+      ...nextState
+    };
+    cache[String(namespace)] = v;
+    return v;
+  }
+
   const [state, setState] = useReducer(reducer, initState);
 
   useEffect(() => {
-    if (Object.prototype.toString.call(options) === '[object Object]') {
+    if (isObject) {
       options = {
         keepAlive: true,
         sessionStorage: false,
@@ -35,7 +40,9 @@ function useKeepState(initState, options) {
       };
     }
 
-    namespace = options.namespace;
+    if (!namespace) {
+      options.keepAlive = false;
+    }
 
     if (options.keepAlive) {
       if (options.sessionStorage && Object.keys(cache).length === 0) {
@@ -51,7 +58,7 @@ function useKeepState(initState, options) {
       }
 
       if (!options.keepAlive) {
-        cache[namespace] = Object.create(null);
+        delete cache[namespace];
       }
     };
   }, []);
@@ -80,4 +87,10 @@ function setStorage(v) {
   return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(v));
 }
 
+function _destroy() {
+  cache = Object.create(null);
+  window.sessionStorage.removeItem(STORAGE_KEY);
+}
+
 export default useKeepState;
+export const destroy = _destroy;
