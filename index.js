@@ -19,7 +19,10 @@ function useKeepState(initState, options) {
       ...prevState,
       ...nextState
     };
-    cache[String(namespace)] = v;
+    if (namespace) {
+      cache[String(namespace)] = v;
+    }
+
     return v;
   }
 
