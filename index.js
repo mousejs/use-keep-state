@@ -90,10 +90,9 @@ function setStorage(v) {
   return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(v));
 }
 
-function _destroy() {
+export function destroy() {
   cache = Object.create(null);
   window.sessionStorage.removeItem(STORAGE_KEY);
 }
 
 export default useKeepState;
-export const destroy = _destroy;

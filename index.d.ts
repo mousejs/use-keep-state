@@ -9,10 +9,10 @@ export interface Opts {
   keepAlive?: boolean;
 }
 
-export function useKeepState(
+export default function useKeepState(
   initState: o,
-  opts: string | symbol | Opts
+  opts?: string | symbol | Opts
 ) : [
   o,
-  () => void
+  (args: o) => void
 ];
