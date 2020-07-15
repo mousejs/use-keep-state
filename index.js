@@ -8,37 +8,45 @@ function isObject(v) {
   return toString.call(v) === '[object Object]';
 }
 
+window.addEventListener('beforeunload', () => {
+  setStorage();
+});
+
 function useKeepState(initState, options) {
-  const namespace = isObject(options) ? options.namespace : options;
+  options = isObject(options)
+    ? {
+      keepAlive: true,
+      sessionStorage: false,
+      ...options
+    } : {
+      keepAlive: true,
+      sessionStorage: false,
+      namespace: options
+    };
+
   function reducer(prevState, nextState) {
-    const v = {
+    const value = {
       ...prevState,
       ...nextState
     };
-    if (namespace) {
-      cache[String(namespace)] = v;
+    if (options.namespace) {
+      const key = String(options.namespace);
+      if (!cache[key]) {
+        cache[key] = {};
+      }
+      cache[key] = {
+        storage: options.sessionStorage,
+        value
+      }
     }
 
-    return v;
+    return value;
   }
 
   const [state, setState] = useReducer(reducer, initState);
 
   useEffect(() => {
-    if (isObject) {
-      options = {
-        keepAlive: true,
-        sessionStorage: false,
-        ...options
-      };
-    } else {
-      options = {
-        keepAlive: true,
-        sessionStorage: false,
-        namespace: options
-      };
-    }
-
+    const namespace = options.namespace;
     if (!namespace) {
       options.keepAlive = false;
     }
@@ -47,7 +55,7 @@ function useKeepState(initState, options) {
       if (options.sessionStorage && Object.keys(cache).length <= 0) {
         cache = getStorage();
       }
-      const v = cache[namespace] || cache[String(namespace)];
+      const v = cache[namespace]?.value;
       v && setState(v);
     }
 
@@ -83,7 +91,13 @@ function getStorage() {
 function setStorage(v) {
   v = v || cache;
   if (Object.prototype.toString.call(v) !== '[object Object]') return;
-  return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(v));
+  const filterNotStorage = {};
+  for (let k in v) {
+    if (v[k].storage) {
+      filterNotStorage[k] = v[k];
+    }
+  }
+  return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(filterNotStorage));
 }
 
 export function destroy() {
