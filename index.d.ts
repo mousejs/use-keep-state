@@ -1,5 +1,5 @@
 
-type o = {
+type state = {
   [k: string]: any
 }
 
@@ -10,9 +10,10 @@ export interface Opts {
 }
 
 export default function useKeepState(
-  initState: o,
+  initState: state,
   opts?: string | Opts
 ) : [
-  o,
-  (args: o) => void
+  state,
+  (args: state) => void,
+  (namespace?: string) => void
 ];

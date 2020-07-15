@@ -12,6 +12,17 @@ window.addEventListener('beforeunload', () => {
   setStorage();
 });
 
+function destroyState(namespace) {
+  setTimeout(() => {
+    if (namespace) {
+      delete cache[namespace];
+    } else {
+      cache = Object.create(null);
+      window.sessionStorage.removeItem(STORAGE_KEY);
+    }
+  }, 25);
+}
+
 function useKeepState(initState, options) {
   options = isObject(options)
     ? {
@@ -55,7 +66,7 @@ function useKeepState(initState, options) {
       if (options.sessionStorage && Object.keys(cache).length <= 0) {
         cache = getStorage();
       }
-      const v = cache[namespace]?.value;
+      const v = cache[namespace] && cache[namespace].value;
       v && setState(v);
     }
 
@@ -72,7 +83,8 @@ function useKeepState(initState, options) {
 
   return [
     state,
-    setState
+    setState,
+    destroyState
   ];
 }
 
@@ -98,11 +110,6 @@ function setStorage(v) {
     }
   }
   return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(filterNotStorage));
-}
-
-export function destroy() {
-  cache = Object.create(null);
-  window.sessionStorage.removeItem(STORAGE_KEY);
 }
 
 export default useKeepState;

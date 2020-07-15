@@ -4,54 +4,69 @@ let cache = Object.create(null);
 const STORAGE_KEY = 'USE-KEEP-STATE';
 const toString = Object.prototype.toString;
 
-window.addEventListener('beforeunload', () => {
-  setStorage();
-});
-
 function isObject(v) {
   return toString.call(v) === '[object Object]';
 }
 
+window.addEventListener('beforeunload', () => {
+  setStorage();
+});
+
+function destroyState(namespace) {
+  setTimeout(() => {
+    if (namespace) {
+      delete cache[namespace];
+    } else {
+      cache = Object.create(null);
+      window.sessionStorage.removeItem(STORAGE_KEY);
+    }
+  }, 25);
+}
+
 function useKeepState(initState, options) {
-  const namespace = isObject(options) ? options.namespace : options;
+  options = isObject(options)
+    ? {
+      keepAlive: true,
+      sessionStorage: false,
+      ...options
+    } : {
+      keepAlive: true,
+      sessionStorage: false,
+      namespace: options
+    };
+
   function reducer(prevState, nextState) {
-    const v = {
+    const value = {
       ...prevState,
       ...nextState
     };
-    if (namespace) {
-      cache[String(namespace)] = v;
+    if (options.namespace) {
+      const key = String(options.namespace);
+      if (!cache[key]) {
+        cache[key] = {};
+      }
+      cache[key] = {
+        storage: options.sessionStorage,
+        value
+      }
     }
 
-    return v;
+    return value;
   }
 
   const [state, setState] = useReducer(reducer, initState);
 
   useEffect(() => {
-    if (isObject) {
-      options = {
-        keepAlive: true,
-        sessionStorage: false,
-        ...options
-      };
-    } else {
-      options = {
-        keepAlive: true,
-        sessionStorage: false,
-        namespace: options
-      };
-    }
-
+    const namespace = options.namespace;
     if (!namespace) {
       options.keepAlive = false;
     }
 
     if (options.keepAlive) {
-      if (options.sessionStorage && Object.keys(cache).length === 0) {
+      if (options.sessionStorage && Object.keys(cache).length <= 0) {
         cache = getStorage();
       }
-      const v = cache[namespace] || cache[String(namespace)];
+      const v = cache[namespace] && cache[namespace].value;
       v && setState(v);
     }
 
@@ -68,7 +83,8 @@ function useKeepState(initState, options) {
 
   return [
     state,
-    setState
+    setState,
+    destroyState
   ];
 }
 
@@ -87,13 +103,13 @@ function getStorage() {
 function setStorage(v) {
   v = v || cache;
   if (Object.prototype.toString.call(v) !== '[object Object]') return;
-  return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(v));
-}
-
-function _destroy() {
-  cache = Object.create(null);
-  window.sessionStorage.removeItem(STORAGE_KEY);
+  const filterNotStorage = {};
+  for (let k in v) {
+    if (v[k].storage) {
+      filterNotStorage[k] = v[k];
+    }
+  }
+  return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(filterNotStorage));
 }
 
 export default useKeepState;
-export const destroy = _destroy;

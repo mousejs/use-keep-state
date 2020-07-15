@@ -32,7 +32,7 @@ const initState = {
 };
 
 const App = () => {
-  const [state, setState] = useKeepState(initState, namespace);
+  const [state, setState, destroyState] = useKeepState(initState, namespace);
 
   const onClick = () => {
     setState({ number: state.number + 1 });
@@ -58,8 +58,6 @@ options
 - keepAlive  // default `true`
 - sessionStorage  // default `false`
 
-## Methods
-- destroy
 
 
 
