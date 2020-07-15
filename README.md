@@ -19,7 +19,7 @@ Similar to Vue keep-alive, But it is not a component.
 npm i use-keep-state -S
 ```
 
-## Usage
+## Example
 ```js
 import React from 'react';
 import useKeepState from 'use-keep-state';
@@ -27,18 +27,20 @@ import useKeepState from 'use-keep-state';
 // Must be unique
 const namespace = 'App';
 
+const initState = {
+  number: 0
+};
+
 const App = () => {
-  const [state, setState] = useKeepState({
-    name: 'name',
-  }, namespace);
+  const [state, setState] = useKeepState(initState, namespace);
 
   const onClick = () => {
-    setState({ name: 'Button' });
+    setState({ number: state.number + 1 });
   };
 
   return (
     <div>
-      <h1>{state.name}</h1>
+      <h1>{state.number}</h1>
       <button onClick={onClick}>Click</button>
     </div>
   )
