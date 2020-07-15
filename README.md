@@ -1,4 +1,4 @@
-> useKeepState for React.js [![HitCount](http://hits.dwyl.com/xjh22222228/use-keep-state.svg)](http://hits.dwyl.com/xjh22222228/use-keep-state)
+> useKeepState for React.js [![HitCount](http://hits.dwyl.com/xjh22222228/use-keep-state.svg)](http://hits.dwyl.com/xjh22222228/use-keep-state) ![GitHub package.json version](https://img.shields.io/github/package-json/v/xjh22222228/use-keep-state) ![GitHub](https://img.shields.io/github/license/xjh22222228/use-keep-state)
 
 ## useKeepState
 Similar to Vue keep-alive, But it is not a component.
