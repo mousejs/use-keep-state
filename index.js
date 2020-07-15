@@ -4,10 +4,6 @@ let cache = Object.create(null);
 const STORAGE_KEY = 'USE-KEEP-STATE';
 const toString = Object.prototype.toString;
 
-window.addEventListener('beforeunload', () => {
-  setStorage();
-});
-
 function isObject(v) {
   return toString.call(v) === '[object Object]';
 }
@@ -48,7 +44,7 @@ function useKeepState(initState, options) {
     }
 
     if (options.keepAlive) {
-      if (options.sessionStorage && Object.keys(cache).length === 0) {
+      if (options.sessionStorage && Object.keys(cache).length <= 0) {
         cache = getStorage();
       }
       const v = cache[namespace] || cache[String(namespace)];

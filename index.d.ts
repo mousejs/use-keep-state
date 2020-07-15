@@ -4,14 +4,14 @@ type o = {
 }
 
 export interface Opts {
-  namespace: string | symbol;
+  namespace: string;
   sessionStorage?: boolean;
   keepAlive?: boolean;
 }
 
 export default function useKeepState(
   initState: o,
-  opts?: string | symbol | Opts
+  opts?: string | Opts
 ) : [
   o,
   (args: o) => void
