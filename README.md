@@ -20,6 +20,37 @@ npm i use-keep-state -S
 ```
 
 ## Example
+No.1 Demo
+```js
+import React from 'react';
+import useKeepState from 'use-keep-state';
+
+// Must be unique
+const namespace = 'App';
+
+const initState = {
+  number: 0
+};
+
+const App = () => {
+  const [state, setState] = useKeepState(initState, namespace);
+
+  const onClick = () => {
+    setState({ number: state.number + 1 });
+  };
+
+  return (
+    <div>
+      <h1>{state.number}</h1>
+      <button onClick={onClick}>Click</button>
+    </div>
+  )
+}
+
+export default App;
+```
+
+No.2 Demo
 ```js
 import React from 'react';
 import useKeepState from 'use-keep-state';
@@ -37,6 +68,11 @@ const App = () => {
   const onClick = () => {
     setState({ number: state.number + 1 });
   };
+
+  React.useEffect(() => {
+    // Leave reset state
+    return () => destroyState(namespace);
+  }, []);
 
   return (
     <div>

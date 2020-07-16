@@ -1,4 +1,13 @@
-import { useReducer, useEffect } from 'react';
+/*!
+ * useKeepState for React v1.2.9
+ * https://github.com/mousejs/use-keep-state
+ *
+ * Copyright xiejiahe and other contributors
+ * Released under the MIT license
+ * https://github.com/mousejs/use-keep-state/LICENSE
+ *
+ */
+import { useReducer, useEffect, useMemo } from 'react';
 
 let cache = Object.create(null);
 const STORAGE_KEY = 'USE-KEEP-STATE';
@@ -24,7 +33,8 @@ function destroyState(namespace) {
 }
 
 function useKeepState(initState, options) {
-  options = isObject(options)
+  options = useMemo(() => {
+    return isObject(options)
     ? {
       keepAlive: true,
       sessionStorage: false,
@@ -34,6 +44,7 @@ function useKeepState(initState, options) {
       sessionStorage: false,
       namespace: options
     };
+  }, [options]);
 
   function reducer(prevState, nextState) {
     const value = {
@@ -54,9 +65,7 @@ function useKeepState(initState, options) {
     return value;
   }
 
-  const [state, setState] = useReducer(reducer, initState);
-
-  useEffect(() => {
+  const [state, setState] = useReducer(reducer, initState, v => {
     const namespace = options.namespace;
     if (!namespace) {
       options.keepAlive = false;
@@ -66,11 +75,18 @@ function useKeepState(initState, options) {
       if (options.sessionStorage && Object.keys(cache).length <= 0) {
         cache = getStorage();
       }
-      const v = cache[namespace] && cache[namespace].value;
-      v && setState(v);
-    }
 
+      const value = cache[namespace] && cache[namespace].value;
+      if (value) {
+        v = value;
+      }
+    }
+    return v
+  });
+
+  useEffect(() => {
     return () => {
+      const namespace = options.namespace;
       if (options.sessionStorage) {
         setStorage();
       }
@@ -109,7 +125,10 @@ function setStorage(v) {
       filterNotStorage[k] = v[k];
     }
   }
-  return window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(filterNotStorage));
+  return window.sessionStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(filterNotStorage)
+  );
 }
 
 export default useKeepState;
