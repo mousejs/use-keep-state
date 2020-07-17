@@ -1,5 +1,5 @@
 /*!
- * useKeepState for React v1.2.9
+ * useKeepState for React v1.2.10
  * https://github.com/mousejs/use-keep-state
  *
  * Copyright xiejiahe and other contributors
@@ -118,7 +118,7 @@ function getStorage() {
 
 function setStorage(v) {
   v = v || cache;
-  if (Object.prototype.toString.call(v) !== '[object Object]') return;
+  if (!(isObject(v))) return;
   const filterNotStorage = {};
   for (let k in v) {
     if (v[k].storage) {
