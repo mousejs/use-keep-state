@@ -1,7 +1,19 @@
-> useKeepState for React.js [![HitCount](http://hits.dwyl.com/xjh22222228/use-keep-state.svg)](http://hits.dwyl.com/xjh22222228/use-keep-state) ![GitHub package.json version](https://img.shields.io/github/package-json/v/xjh22222228/use-keep-state) ![GitHub](https://img.shields.io/github/license/xjh22222228/use-keep-state)
 
-## useKeepState
-Similar to Vue keep-alive, But it is not a component.
+<p align="center">
+  <img src="media/logo.jpg" width="300" />
+  <br />
+  <b>useKeepState</b>
+  <p align="center">Similar to Vue keep-alive, But it is not a component.</p>
+  <p align="center">
+    <a href="https://github.com/mousejs/use-keep-state/stargazers"><img src="https://img.shields.io/github/stars/mousejs/use-keep-state" alt="Stars Badge"/></a>
+    <img src="https://img.shields.io/github/package-json/v/mousejs/use-keep-state" />
+    <img src="https://img.shields.io/github/license/mousejs/use-keep-state" />
+    <a href="https://hits.dwyl.com/mousejs/use-keep-state">
+      <img src="https://hits.dwyl.com/mousejs/use-keep-state.svg" />
+    </a>
+  </p>
+</p>
+
 
 
 ## Example

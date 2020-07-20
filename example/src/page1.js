@@ -1,7 +1,7 @@
 import React from "react";
 import useKeepState from "./lib";
 
-const namespace = Symbol("Page1");
+const namespace = "Page1";
 
 const Page1 = ({ history }) => {
   const [state, setState] = useKeepState(
