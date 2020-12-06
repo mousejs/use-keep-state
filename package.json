@@ -1,6 +1,6 @@
 {
   "name": "use-keep-state",
-  "version": "1.2.10",
+  "version": "1.3.0",
   "description": "keep alive for React",
   "main": "index.js",
   "scripts": {
