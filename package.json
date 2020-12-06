@@ -19,8 +19,8 @@
     "url": "https://github.com/mousejs/use-keep-state/issues"
   },
   "homepage": "https://github.com/mousejs/use-keep-state#readme",
-  "dependencies": {
-    "react": "^16.13.1"
+  "devDependencies": {
+    "react": "^17.0.1"
   },
   "typings": "./index.d.ts"
 }
